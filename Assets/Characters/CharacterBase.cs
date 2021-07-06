@@ -4,30 +4,26 @@ using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected CharacterUIInterface FeedbackUI;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OnEnemyDetected(GameObject enemy)
+    public virtual void OnEnemyDetected(GameObject enemy)
     {
         Debug.Log("[" + gameObject.name + "] Detected " + enemy.name);
+
+        Unity.VisualScripting.CustomEvent.Trigger(gameObject, "OnEnemyDetected", new object[1] {enemy});
     }
 
-    public void OnEnemyLost(GameObject enemy)
+    public virtual void OnEnemyLost(GameObject enemy)
     {
         Debug.Log("[" + gameObject.name + "] Lost " + enemy.name);
+
+        Unity.VisualScripting.CustomEvent.Trigger(gameObject, "OnEnemyLost", new object[1] {enemy});
     }
 
-    public void OnSoundHeard(Vector3 location)
+    public virtual void OnSoundHeard(Vector3 location)
     {
         Debug.Log("[" + gameObject.name + "] heard something at " + location);
+        
+        Unity.VisualScripting.CustomEvent.Trigger(gameObject, "OnSoundHeard", new object[1] {location});
     }
 }
